@@ -1,0 +1,31 @@
+<div class="offer-card">
+    <div class="offer-card__picture">
+        <img [srcset]="offer.vehicle_picture_front" alt="Cannot load picture">
+        <ng-container *ngIf="!isFavorite;else favoriteTemplate">
+            <i class="far fa-star" (click)="toggleFavoriteCard()"></i>
+        </ng-container>
+        <ng-template #favoriteTemplate>
+            <i class="fas fa-star favorite" (click)="toggleFavoriteCard()"></i>
+        </ng-template>
+    </div>
+    <div class="offer-card__content">
+        <h5>{{offer.title}}</h5>
+        <div class="offer-card__content--tags">
+            <span class="offer-tag" *ngFor="let tag of offer.tags"> {{tag}}</span>
+        </div>
+        <div class="offer-card__content--address">
+            <span>{{offer.shortCode}}</span>
+            <span>{{offer.location}}</span>
+        </div>
+    </div>
+    <div class="offer-card__price">
+        <div class="offer-card__price--info">
+            <span class="label">Currently Highest Offer</span>
+            <span class="value">{{offer.askPrice === 0 ? offer.highestBidEver : offer.highestBid}} €</span>
+        </div>
+        <div class="offer-card__price--info">
+            <span class="label">Ask Price</span>
+            <span class="value">{{offer.askPrice}} €</span>
+        </div>
+    </div>
+</div>

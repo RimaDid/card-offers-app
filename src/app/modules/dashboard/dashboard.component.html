@@ -1,0 +1,29 @@
+<div class="dashboard-container">
+    <div class="toolbar">
+        <div class="input-group input-group-sm mb-3">
+            <select class="form-select form-select-sm"  (change)="searchConfigUpdate($event)">
+                <option selected>Filter By</option>
+                <option value="tags">Tags</option>
+                <option value="title">Title</option>
+              </select>
+            <input type="text" class="form-control" [(ngModel)]="searchQuery" (keyup)="searchOffers(searchQuery)">
+          </div>
+          <div class="btn-group btn-group-sm mb-3" role="group">
+            <button type="button" class="btn ">
+                <ng-container *ngIf="sortDirection === 'ASC';else DESCTemplate">
+                    <i class="fas fa-sort-amount-up-alt" (click)="toggleSortDirection()"></i>
+                </ng-container>
+                <ng-template #DESCTemplate>
+                    <i class="fas fa-sort-amount-down-alt" (click)="toggleSortDirection()"></i>
+                </ng-template>
+            </button>
+            <select class="form-select form-select-sm" [(ngModel)]="sortedBy" (change)="sortConfigUpdate($event)">
+                <option value="highestBid">Highest Bid</option>
+                <option value="offerPublicationDate">Publication Date</option>
+              </select>
+          </div>
+    </div>
+    <div class="cards">
+        <app-offer-card *ngFor="let offer of manipulatedOffers" [offer]="offer" [isFavorite]="isFavoriteOffer(offer)" (isFavoriteOffersChange)="updateOffer($event, offer)"></app-offer-card>
+    </div>
+</div>

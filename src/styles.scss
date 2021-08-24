@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+@import './variables.scss';
+
+body{
+	font-family:"Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
+	background-color: $tr-blue-extra-light;
+}
+
+//scroll bar style
+::-webkit-scrollbar {
+	width: 3px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+	background: $tr-blue-extra-light; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+	background: $tr-blue;
+	border-radius: 5px; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+	background: opacify($color: $tr-blue-dark, $amount: 0.8); 
+  }

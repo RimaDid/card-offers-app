@@ -1,0 +1,18 @@
+.dashboard-container {
+    padding: 1em 2em;
+    .toolbar {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+        .input-group {
+            width: auto;
+        }
+    }
+    .cards {
+        display: flex;
+        flex-flow: row wrap;
+    }
+}

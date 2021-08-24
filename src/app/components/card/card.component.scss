@@ -1,0 +1,106 @@
+@import '../../../variables.scss';
+
+:host {
+    flex: 1;
+}
+.offer-card {
+    background-color: $tr-blue-light;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 450px;
+    border-radius: 5px;
+    box-shadow:0 0 4px 4px $tr-blue-very-light;
+    color: $tr-blue-dark;
+    font-size: 12px;
+    margin: 1em;
+    overflow: hidden;
+    & > * {
+        flex: 1;
+    }
+    &__picture {
+        position: relative;
+        img {
+            width: 100%;
+        }
+        i {
+            position: absolute;
+            color: white;
+            right: 5px;
+            top: 5px;
+            cursor: pointer;
+        }
+        .favorite {
+            color: $tr-yellow;
+        }
+    }
+    &__content {
+        padding: 1em;
+        flex-grow: 2 !important;
+        h5 {
+            margin: 0.5em 0 0.25em;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: .5px;
+        }
+        &--tags {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            margin: 1em 0 .75em;
+            max-height: 45px;
+            overflow-y: auto;
+            .offer-tag {
+                flex: 1 auto;
+                padding: 3px;
+                background-color: transparentize($color: $tr-yellow, $amount: 0.3);
+                border-radius: 3px;
+                margin: 0 5px 5px 0;
+                font-size: 10px;
+                font-weight: bold;
+                letter-spacing: .75px;
+            }
+        }
+        &--address {
+            padding: .5em 0;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            align-content: center;
+            justify-content: space-between;
+            align-items: center;
+            span:first-child {
+                font-size: 10px;
+                font-weight: 600;
+                letter-spacing: .5px;
+            }
+        }
+    }
+    &__price {
+        &--info {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            align-content: center;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 1em;
+            margin-bottom: .25em;
+            background-color: $tr-blue-mid-light;
+            .label {
+                flex: 1;
+                font-size: 10px;
+                font-weight: 600;
+                letter-spacing: .5px;
+            }
+            .value {
+                flex: 1;
+            }
+        }
+        &--info:last-child {
+            margin-bottom: 0;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+    }
+}
