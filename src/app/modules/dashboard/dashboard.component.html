@@ -23,7 +23,10 @@
               </select>
           </div>
     </div>
-    <div class="cards">
-        <app-offer-card *ngFor="let offer of manipulatedOffers" [offer]="offer" [isFavorite]="isFavoriteOffer(offer)" (isFavoriteOffersChange)="updateOffer($event, offer)"></app-offer-card>
+    <div class="cards" *ngIf="manipulatedOffers.length;else noData">
+            <app-offer-card *ngFor="let offer of manipulatedOffers" [offer]="offer" [isFavorite]="isFavoriteOffer(offer)" (isFavoriteOffersChange)="updateOffer($event, offer)"></app-offer-card>
     </div>
+    <ng-template #noData>
+        <app-no-data></app-no-data>
+    </ng-template>
 </div>

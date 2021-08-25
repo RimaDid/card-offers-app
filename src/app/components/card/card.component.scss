@@ -15,13 +15,13 @@
     font-size: 12px;
     margin: 1em;
     overflow: hidden;
-    & > * {
-        flex: 1;
-    }
     &__picture {
+        flex: 1 auto;
+        max-height: 40%;
         position: relative;
         img {
             width: 100%;
+            height: 100%;
         }
         i {
             position: absolute;
@@ -35,20 +35,23 @@
         }
     }
     &__content {
+        flex: 1;
         padding: 1em;
-        flex-grow: 2 !important;
+        display: flex;
+        flex-direction: column;
         h5 {
+            flex: 0;
             margin: 0.5em 0 0.25em;
             font-size: 10px;
             font-weight: bold;
             letter-spacing: .5px;
         }
         &--tags {
+            flex: auto;
             display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            margin: 1em 0 .75em;
-            max-height: 45px;
+            flex-flow: row wrap;
+            align-content: center;
+            margin: .5em 0;
             overflow-y: auto;
             .offer-tag {
                 flex: 1 auto;
@@ -59,9 +62,11 @@
                 font-size: 10px;
                 font-weight: bold;
                 letter-spacing: .75px;
+                text-align: center;
             }
         }
         &--address {
+            flex: 0;
             padding: .5em 0;
             display: flex;
             flex-wrap: wrap;
@@ -77,6 +82,7 @@
         }
     }
     &__price {
+        flex: 0 !important;
         &--info {
             display: flex;
             flex-wrap: wrap;

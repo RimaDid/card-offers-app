@@ -14,6 +14,6 @@ import { NoDataComponent } from './no-data/no-data.component';
     CommonModule,
     FormsModule,
   ],
-  exports: [CardComponent],
+  exports: [CardComponent, NoDataComponent],
 })
 export class ComponentsModule { }

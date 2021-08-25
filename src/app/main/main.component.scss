@@ -3,9 +3,10 @@
 
 .main-container{
 	margin:0;
-	font-family:"Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
 	color:#fff;
+	height: 100%;
 	padding-left:$menu-width-desktop;
+	overflow: auto;
 }
 
 @media screen and (max-width:900px) and (min-width:400px){

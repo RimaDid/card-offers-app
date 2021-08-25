@@ -2,12 +2,12 @@ import { mockFavoriteOffers } from './../../mock/favorite-offers-card.mock';
 import { DataManipulationService } from './../../services/data-manipulation.service';
 import { Observable } from 'rxjs';
 import { OffersService } from './../../services/offers.service';
-import { FavoriteOffer } from './../../models/offer.interface';
+import { FavoriteOffer, FavoriteOffers } from './../../models/offer.interface';
 import { Component, OnInit } from '@angular/core';
 import { mockOffers } from 'src/app/mock/offers-card.mock';
 import { Offer } from 'src/app/models/offer.interface';
 import { FavoriteOffersService } from 'src/app/services/favorit-offers.service';
-import { first } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
 
   allOffers: Offer[] = mockOffers;
 
-  favoriteOffers: Offer[] = mockFavoriteOffers;
+  favoriteOffers: string[] = mockFavoriteOffers.favorites;
 
   private filteredOffers: Offer[] = [];
 
@@ -49,7 +49,8 @@ export class DashboardComponent implements OnInit {
   
     this.favoriteOfferService.getFavoriteOffers().pipe(
       first(),
-    ).subscribe((offers) => {
+      map((resp) => resp.favorites),
+    ).subscribe((offers: string[]) => {
       this.favoriteOffers = offers;
     });
   }
@@ -92,7 +93,7 @@ export class DashboardComponent implements OnInit {
   }
 
   isFavoriteOffer(offer: Offer): boolean {
-    return this.favoriteOffers.find(({uid}) => offer.uid === uid)? true : false;
+    return this.favoriteOffers.find((uid) => offer.uid === uid)? true : false;
   }
 
 }

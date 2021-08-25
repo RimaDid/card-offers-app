@@ -32,3 +32,7 @@ export interface FavoriteOffer {
     offerId: string,
     addToFavorite: boolean,
 }
+
+export interface FavoriteOffers {
+    favorites: string[];
+}

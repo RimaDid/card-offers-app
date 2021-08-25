@@ -1,10 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 @import './variables.scss';
 
-body{
-	font-family:"Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif;
-	background-color: $tr-blue-extra-light;
+* {
+  margin:0;
+  padding:0;
 }
+html, body {
+  height:100%;
+  font-family:Arial, Helvetica, sans-serif;
+  line-height: 160%;
+  position: relative;
+  background-color: $tr-blue-extra-light;
+}
+
+
 
 //scroll bar style
 ::-webkit-scrollbar {
