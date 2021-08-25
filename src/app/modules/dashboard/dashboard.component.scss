@@ -13,7 +13,11 @@
         align-items: flex-start;
         width: 100%;
         .input-group {
-            width: auto;
+            width: 40%;
+            .filter-options {
+                padding-right: 2rem;
+                max-width: 100px;
+            }
         }
     }
     .cards {

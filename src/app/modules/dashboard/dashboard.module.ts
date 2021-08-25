@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+
 import { ComponentsModule } from 'src/app/components/components.module';
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { DashboardComponent } from './dashboard.component';
 import { OffersService } from './../../services/offers.service';
 import { FavoriteOffersService } from './../../services/favorit-offers.service';
-
-import { DashboardComponent } from './dashboard.component';
-import { DataManipulationService } from 'src/app/services/data-manipulation.service';
+import { DataManipulationService } from '../../services/data-manipulation.service';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { DataManipulationService } from 'src/app/services/data-manipulation.serv
     CommonModule,
     FormsModule,
     ComponentsModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    NgxSpinnerModule
   ],
   providers: [
     FavoriteOffersService,

@@ -1,20 +1,21 @@
 import { mockFavoriteOffers } from './../../mock/favorite-offers-card.mock';
 import { DataManipulationService } from './../../services/data-manipulation.service';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable, Subject } from 'rxjs';
 import { OffersService } from './../../services/offers.service';
 import { FavoriteOffer, FavoriteOffers } from './../../models/offer.interface';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { mockOffers } from 'src/app/mock/offers-card.mock';
 import { Offer } from 'src/app/models/offer.interface';
 import { FavoriteOffersService } from 'src/app/services/favorit-offers.service';
-import { first, map } from 'rxjs/operators';
+import { first, map, takeUntil } from 'rxjs/operators';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   allOffers: Offer[] = mockOffers;
 
@@ -34,24 +35,37 @@ export class DashboardComponent implements OnInit {
 
   sortedBy: 'highestBid' | 'offerPublicationDate' = 'highestBid';
 
+  private ngDestroy$ = new Subject();
+
+  loading = true;
+
   constructor(private offerService: OffersService, 
               private favoriteOfferService: FavoriteOffersService, 
-              private dataManipService: DataManipulationService) { }
+              private dataManipService: DataManipulationService,
+              private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
-    
-    this.offerService.getOffers().pipe(
+    this.spinner.show()
+    this.fetchData();
+  }
+
+  private fetchData(): void {
+    const offers$ = this.offerService.getOffers().pipe(
       first(),
-    ).subscribe((offers) => {
+    );
+    const favoriteOffers$ = this.favoriteOfferService.getFavoriteOffers().pipe(
+      map((resp) => resp.favorites),
+    );
+
+    combineLatest([offers$, favoriteOffers$]).pipe(
+      takeUntil(this.ngDestroy$)
+    ).subscribe(([offers, favOffers]) => {
       this.allOffers = offers;
       this.manipulatedOffers = this.allOffers;
-    });
-  
-    this.favoriteOfferService.getFavoriteOffers().pipe(
-      first(),
-      map((resp) => resp.favorites),
-    ).subscribe((offers: string[]) => {
-      this.favoriteOffers = offers;
+      this.favoriteOffers = favOffers;
+      this.sortOffers();
+      this.loading = false;
+      this.spinner.hide();
     });
   }
 
@@ -83,17 +97,27 @@ export class DashboardComponent implements OnInit {
   }
 
   updateOffer(offer: FavoriteOffer, currentOffer: Offer) {
-    let updateAction: Observable<any>;
+    let updateAction: Observable<FavoriteOffers>;
     if (offer.addToFavorite) {
       updateAction = this.favoriteOfferService.addToFavoriteOffers(offer.offerId, currentOffer);
     } else {
       updateAction = this.favoriteOfferService.removeFromFavoriteOffers(offer.offerId);
     }
-    updateAction.subscribe((response) => console.log('update favorite response ', response));
+    updateAction.pipe(
+      takeUntil(this.ngDestroy$),
+      map((res) => res.favorites),
+      )
+      .subscribe((response) => {
+      this.favoriteOffers = response;
+    });
   }
 
   isFavoriteOffer(offer: Offer): boolean {
     return this.favoriteOffers.find((uid) => offer.uid === uid)? true : false;
+  }
+
+  ngOnDestroy(): void {
+    this.ngDestroy$.next(true);
   }
 
 }

@@ -1,12 +1,12 @@
-<div class="dashboard-container">
+<div class="dashboard-container" *ngIf="!loading;else loadingTemplate">
     <div class="toolbar">
         <div class="input-group input-group-sm mb-3">
-            <select class="form-select form-select-sm"  (change)="searchConfigUpdate($event)">
+            <select class="form-select form-select-sm filter-options"  (change)="searchConfigUpdate($event)">
                 <option selected>Filter By</option>
                 <option value="tags">Tags</option>
                 <option value="title">Title</option>
               </select>
-            <input type="text" class="form-control" [(ngModel)]="searchQuery" (keyup)="searchOffers(searchQuery)">
+            <input type="text" class="form-control" [(ngModel)]="searchQuery" placeholder="Search offers" (keyup)="searchOffers(searchQuery)">
           </div>
           <div class="btn-group btn-group-sm mb-3" role="group">
             <button type="button" class="btn ">
@@ -30,3 +30,6 @@
         <app-no-data></app-no-data>
     </ng-template>
 </div>
+<ng-template #loadingTemplate>
+    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+</ng-template>
