@@ -1,7 +1,5 @@
 @import '../../../variables.scss';
 
-$icon-url-base: '../../../assets/svg';
-
 main{
 	position:relative;
 	height:100vh;
@@ -28,7 +26,7 @@ main{
 }
 
 .menu{
-	background:$tr-blue;
+	background:$tr-blue-mid-light;
 	height:100vh;
 	width:$menu-width-desktop;
 	position:fixed;
@@ -40,13 +38,15 @@ main{
     flex-direction: column;
 	
 	.logo{
+		flex: 0;
 		background:rgba(0,0,0,0.1);
-		padding:1em 0.5em;
-		text-align:center;
-		
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		max-height: 80px;
 		img{
-			width:90%;
-            height: 60%;
+			width:95%;
+            height: 85%;
 			border-radius:5px;
 			overflow:hidden;
 			border:4px solid $tr-blue-light;
@@ -70,9 +70,24 @@ main{
 			a {
                 text-decoration: none;
                 color: inherit;
+				position: relative;
                 i{
                     padding: 1em;
                 }
+				&.active {
+					font-weight: 600;
+					color: #fffF;
+					&::before {
+						content: "";
+						height: 30px;
+						width: 5px;
+						border-radius: 3px;
+						background: $tr-yellow;
+						position: absolute;
+						top: -6px;
+						left: 0;
+					}
+				}
             }
 			
 			&:hover{
@@ -82,9 +97,7 @@ main{
 			&:focus{
 				outline:none;
 			}
-            &.active {
-                color: $tr-yellow;
-            }
+            
 			
 		}
 	}

@@ -1,19 +1,20 @@
-import { SidenavComponent } from './sidenav/sidenav.component';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { MainComponent } from './main.component';
 import { MainRoutingModule } from './main-routing.module';
-import { CommonModule } from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ComponentsModule } from './../components/components.module';
 
 @NgModule({
   declarations: [
     MainComponent,
-    SidenavComponent,
   ],
   imports: [
     CommonModule,
     FontAwesomeModule,
+    ComponentsModule,
     MainRoutingModule
   ],
   providers: [],

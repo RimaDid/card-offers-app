@@ -17,20 +17,15 @@ export class DataManipulationService {
           return ({tags}: Offer) => this.filterByStringArray(tags, searchTerm);
         }
         if (filterConfig === 'title') {
-          return ({title}: Offer) => this.filterByString(title, searchTerm);
+          return ({title}: Offer) => this.compareStrings(title, searchTerm);
         }
-          return ({tags, title}: Offer) => (this.filterByStringArray(tags, searchTerm) || this.filterByString(title, searchTerm));
+          return ({tags, title}: Offer) => (this.filterByStringArray(tags, searchTerm) || this.compareStrings(title, searchTerm));
       }
     
     
       private filterByStringArray(array: string[], query: string): boolean {
-        return array.some((item) => item.toLowerCase().includes(query));
+        return array.some((item) =>  this.compareStrings(item, query));
       }
-    
-      private filterByString(str: string, query: string): boolean {
-        return str.toLowerCase().includes(query);
-      }
-    
       
     /**
      * 
@@ -53,5 +48,13 @@ export class DataManipulationService {
         return direction === 'ASC'
               ? new Date(valueA).getTime() - new Date(valueB).getTime() 
               : new Date(valueB).getTime() - new Date(valueA).getTime();
+      }
+
+      private formatWhiteSpace(str: string): string {
+        return str.replace(/\s+/g, " ");
+      }
+
+      private compareStrings(str1: string, str2: string): boolean {
+        return this.formatWhiteSpace(str1.toLowerCase()).includes(this.formatWhiteSpace(str2));
       }
 }
